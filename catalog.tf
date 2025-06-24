@@ -215,6 +215,12 @@ resource "aws_iam_role_policy_attachment" "cloudformation_full_access" {
   policy_arn = "arn:aws:iam::aws:policy/AWSCloudFormationFullAccess"
 }
 
+resource "aws_iam_role_policy_attachment" "s3_full_access" {
+  role       = aws_iam_role.launch_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
+
+
 resource "aws_s3_bucket_policy" "allow_sc_launch_role_read" {
   bucket     = aws_s3_bucket.cf_templates.id
   depends_on = [aws_iam_role.launch_role]
