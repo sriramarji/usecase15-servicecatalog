@@ -152,7 +152,7 @@ resource "aws_iam_policy" "end_user_policy" {
 
 
 resource "aws_iam_role_policy_attachment" "end_user_attach" {
-  role       = aws_iam_role.test_role.name
+  role       = aws_iam_role.sc_end_user_role.name
   policy_arn = aws_iam_policy.end_user_policy.arn
 }
 
