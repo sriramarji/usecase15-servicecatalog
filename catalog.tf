@@ -159,14 +159,8 @@ resource "aws_iam_role_policy_attachment" "end_user_attach" {
 # Data source to get account ID
 data "aws_caller_identity" "current" {}*/
 
-
 # Terraform configuration to set up an AWS Service Catalog product that
 # provisions an EC2 instance with a "Hello World" web page
-
-
-# Terraform configuration to set up an AWS Service Catalog product that
-# provisions an EC2 instance with a "Hello World" web page
-
 
 
 resource "random_id" "rand" {
@@ -175,7 +169,7 @@ resource "random_id" "rand" {
 
 # S3 bucket to store the CloudFormation template
 resource "aws_s3_bucket" "cf_templates" {
-  bucket        = "product-templates-${random_id.rand.hex}"
+  bucket        = "sc-prduct-templates-${random_id.rand.hex}"
   force_destroy = true
 }
 
