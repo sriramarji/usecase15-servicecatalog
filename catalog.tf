@@ -23,7 +23,6 @@ resource "aws_s3_object" "my-object" {
   content_type  = "text/yaml"
 }
 
-
 # IAM role for Service Catalog to launch EC2
 resource "aws_iam_role" "test_role" {
   name = "sc-ec2-launch-role"
@@ -71,7 +70,6 @@ resource "aws_s3_bucket_policy" "allow_sc_launch_role_read" {
     ]
   })
 }
-
 
 # Service Catalog portfolio
 resource "aws_servicecatalog_portfolio" "portfolio" {
@@ -159,17 +157,13 @@ resource "aws_iam_role_policy_attachment" "end_user_attach" {
 # Data source to get account ID
 data "aws_caller_identity" "current" {}*/
 
-# Terraform configuration to set up an AWS Service Catalog product that
-# provisions an EC2 instance with a "Hello World" web page
-
-
 resource "random_id" "rand" {
   byte_length = 4
 }
 
 # S3 bucket to store the CloudFormation template
 resource "aws_s3_bucket" "cf_templates" {
-  bucket        = "sc-prduct-templates-${random_id.rand.hex}"
+  bucket        = "sc-product-templates-${random_id.rand.hex}"
   force_destroy = true
 }
 
@@ -204,47 +198,15 @@ resource "aws_iam_role" "launch_role" {
   })
 }
 
-# resource "aws_iam_role_policy_attachment" "ec2_full_access" {
-#   role       = aws_iam_role.launch_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
-# }
-
-# resource "aws_iam_role_policy_attachment" "cloudformation_full_access" {
-#   role       = aws_iam_role.launch_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AWSCloudFormationFullAccess"
-# }
-
-resource "aws_iam_policy" "ec2_only_policy" {
-  name = "ec2-launch-role-policy"
-  policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Effect" : "Allow",
-        "Action" : [
-          "cloudformation:CreateStack",
-          "cloudformation:DeleteStack",
-          "cloudformation:DescribeStackEvents",
-          "cloudformation:DescribeStacks",
-          "cloudformation:GetTemplateSummary",
-          "cloudformation:SetStackPolicy",
-          "cloudformation:ValidateTemplate",
-          "cloudformation:UpdateStack",
-          "ec2:*",
-          "s3:GetObject",
-          "servicecatalog:*"
-        ],
-        "Resource" : "*"
-      }
-    ]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "attach" {
+resource "aws_iam_role_policy_attachment" "ec2_full_access" {
   role       = aws_iam_role.launch_role.name
-  policy_arn = aws_iam_policy.ec2_only_policy.arn
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
 }
 
+resource "aws_iam_role_policy_attachment" "cloudformation_full_access" {
+  role       = aws_iam_role.launch_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSCloudFormationFullAccess"
+}
 
 resource "aws_s3_bucket_policy" "allow_sc_launch_role_read" {
   bucket     = aws_s3_bucket.cf_templates.id
