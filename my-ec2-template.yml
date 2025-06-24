@@ -20,7 +20,7 @@ Resources:
           #!/bin/bash
           yum update -y
           yum install -y httpd
-          echo "Hello World from Service Catalog" > /var/www/html/index.html
+          echo "Hello World" > /var/www/html/index.html
           systemctl start httpd
           systemctl enable httpd
       Tags:
