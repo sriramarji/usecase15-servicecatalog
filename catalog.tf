@@ -1,5 +1,9 @@
+resource "random_id" "rand" {
+  byte_length = 4
+}
+
 resource "aws_s3_bucket" "my-bucket" {
-  bucket        = "sc-product-templates-${random_id.rand.hex}"
+  bucket        = "ser-catalog-usecase-${random_id.rand.hex}"
   force_destroy = true
 }
 
