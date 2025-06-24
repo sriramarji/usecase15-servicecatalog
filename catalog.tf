@@ -1,4 +1,4 @@
-/*resource "random_id" "rand" {
+resource "random_id" "rand" {
   byte_length = 4
 }
 
@@ -155,9 +155,9 @@ resource "aws_iam_role_policy_attachment" "end_user_attach" {
 }
 
 # Data source to get account ID
-data "aws_caller_identity" "current" {}*/
+data "aws_caller_identity" "current" {}
 
-resource "random_id" "rand" {
+/*resource "random_id" "rand" {
   byte_length = 4
 }
 
@@ -316,4 +316,4 @@ data "aws_caller_identity" "current" {}
 
 output "cloudformation_template_url" {
   value = "https://${aws_s3_bucket.cf_templates.bucket}.s3.amazonaws.com/${aws_s3_object.ec2_product_template.key}"
-}
+}*/
