@@ -204,15 +204,47 @@ resource "aws_iam_role" "launch_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "ec2_full_access" {
-  role       = aws_iam_role.launch_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+# resource "aws_iam_role_policy_attachment" "ec2_full_access" {
+#   role       = aws_iam_role.launch_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+# }
+
+# resource "aws_iam_role_policy_attachment" "cloudformation_full_access" {
+#   role       = aws_iam_role.launch_role.name
+#   policy_arn = "arn:aws:iam::aws:policy/AWSCloudFormationFullAccess"
+# }
+
+resource "aws_iam_policy" "ec2_only_policy" {
+  name = "ec2-launch-role-policy"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "cloudformation:CreateStack",
+          "cloudformation:DeleteStack",
+          "cloudformation:DescribeStackEvents",
+          "cloudformation:DescribeStacks",
+          "cloudformation:GetTemplateSummary",
+          "cloudformation:SetStackPolicy",
+          "cloudformation:ValidateTemplate",
+          "cloudformation:UpdateStack",
+          "ec2:*",
+          "s3:GetObject",
+          "servicecatalog:*"
+        ],
+        "Resource" : "*"
+      }
+    ]
+  })
 }
 
-resource "aws_iam_role_policy_attachment" "cloudformation_full_access" {
+resource "aws_iam_role_policy_attachment" "attach" {
   role       = aws_iam_role.launch_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSCloudFormationFullAccess"
+  policy_arn = aws_iam_policy.ec2_only_policy.arn
 }
+
 
 resource "aws_s3_bucket_policy" "allow_sc_launch_role_read" {
   bucket     = aws_s3_bucket.cf_templates.id
