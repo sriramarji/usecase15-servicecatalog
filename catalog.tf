@@ -64,7 +64,7 @@ resource "aws_s3_bucket_policy" "allow_sc_launch_role_read" {
         Resource = "${aws_s3_bucket.my-bucket.arn}/*",
         Condition = {
           StringEquals = {
-            "aws:PrincipalArn" = aws_iam_role.launch_role.arn
+            "aws:PrincipalArn" = aws_iam_role.test_role.arn
           }
         }
       }
