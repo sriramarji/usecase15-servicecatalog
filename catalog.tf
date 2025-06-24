@@ -112,7 +112,7 @@ resource "aws_servicecatalog_constraint" "test_launch_constraint" {
   product_id   = aws_servicecatalog_product.ec2_product.id
   type         = "LAUNCH"
   parameters   = jsonencode({
-    RoleArn = aws_iam_role.test_role.arn
+    "RoleArn" = aws_iam_role.test_role.arn
   })
 }
 
