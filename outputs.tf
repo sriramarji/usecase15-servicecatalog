@@ -1,6 +1,6 @@
-output "cloudformation_template_url" {
-  value = "https://${aws_s3_bucket.my-bucket.bucket}.s3.amazonaws.com/${aws_s3_object.my-object.key}"
-}
+# output "cloudformation_template_url" {
+#   value = "https://${aws_s3_bucket.my-bucket.bucket}.s3.amazonaws.com/${aws_s3_object.my-object.key}"
+# }
 
 output "product_name" {
   description = "Service Catalog product name"
