@@ -184,9 +184,9 @@ resource "aws_s3_bucket_public_access_block" "cf_templates" {
 
 resource "aws_s3_object" "ec2_product_template" {
   bucket        = aws_s3_bucket.cf_templates.id
-  key           = "ec2-product.yaml"
-  source        = "${path.module}/ec2-product.yaml"
-  etag          = filemd5("${path.module}/ec2-product.yaml")
+  key           = "my-ec2-template.yml"
+  source        = "${path.module}/my-ec2-template.yml"
+  etag          = filemd5("${path.module}/my-ec2-template.yml")
   content_type  = "text/yaml"
 }
 
