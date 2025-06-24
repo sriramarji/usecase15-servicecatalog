@@ -164,6 +164,11 @@ data "aws_caller_identity" "current" {}*/
 # provisions an EC2 instance with a "Hello World" web page
 
 
+# Terraform configuration to set up an AWS Service Catalog product that
+# provisions an EC2 instance with a "Hello World" web page
+
+
+
 resource "random_id" "rand" {
   byte_length = 4
 }
@@ -184,9 +189,9 @@ resource "aws_s3_bucket_public_access_block" "cf_templates" {
 
 resource "aws_s3_object" "ec2_product_template" {
   bucket        = aws_s3_bucket.cf_templates.id
-  key           = "my-ec2-template.yml"
-  source        = "${path.module}/my-ec2-template.yml"
-  etag          = filemd5("${path.module}/my-ec2-template.yml")
+  key           = "ec2-product.yaml"
+  source        = "${path.module}/ec2-product.yaml"
+  etag          = filemd5("${path.module}/ec2-product.yaml")
   content_type  = "text/yaml"
 }
 
