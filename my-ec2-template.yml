@@ -1,35 +1,23 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Service Catalog product to launch EC2 with Hello World
-
-Parameters:
-  KeyName:
-    Type: AWS::EC2::KeyPair::KeyName
-    Default: Hcl-prac-training
-    Description: SSH key for the EC2 instance
+Description: Launch a web server EC2 instance
 
 Resources:
-  HelloWorldInstance:
+  WebAppInstance:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
       ImageId: ami-020cba7c55df1f615
       SecurityGroups:
         - !Ref WebSG
-      KeyName:
-        Ref: KeyName
       UserData:
         Fn::Base64: |
           #!/bin/bash
-          yum update -y
           yum install -y httpd
-          echo "Hello World" > /var/www/html/index.html
           systemctl start httpd
           systemctl enable httpd
-      Tags:
-        - Key: Name
-          Value: HelloWorldInstance
-  
-   WebSG:
+          echo "Hello World!" > /var/www/html/index.html
+
+  WebSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow HTTP
