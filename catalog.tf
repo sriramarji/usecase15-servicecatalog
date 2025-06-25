@@ -266,7 +266,7 @@ resource "aws_iam_role_policy" "service_catalog_policy" {
 
 ## 3. Create CloudFormation Template for Web App
 data "template_file" "web_app_template" {
-  template = file("${path.module}/my-ec2-template.yml")
+  template = file("${path.module}/myec2-template.yml")
 }
 
 resource "aws_s3_object" "web_app_template" {
