@@ -9,5 +9,5 @@ output "product_name" {
 
 output "portfolio_name" {
   description = "Service Catalog portfolio name"
-  value       = aws_servicecatalog_portfolio.web_app_product.name
+  value       = aws_servicecatalog_portfolio.web_app_portfolio.name
 }
