@@ -13,6 +13,8 @@ Resources:
     Properties:
       InstanceType: t2.micro
       ImageId: ami-020cba7c55df1f615
+      SecurityGroups:
+        - !Ref WebSG
       KeyName:
         Ref: KeyName
       UserData:
@@ -26,3 +28,13 @@ Resources:
       Tags:
         - Key: Name
           Value: HelloWorldInstance
+  
+   WebSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
