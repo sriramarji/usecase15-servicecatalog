@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Launch a web server EC2 instance
+Description: Launch a web server EC2 instance with Nginx on Ubuntu
 
 Resources:
   WebAppInstance:
@@ -12,10 +12,11 @@ Resources:
       UserData:
         Fn::Base64: |
           #!/bin/bash
-          yum install -y httpd
-          systemctl start httpd
-          systemctl enable httpd
-          echo "Hello World!" > /var/www/html/index.html
+          apt update -y
+          apt install nginx -y
+          systemctl start nginx
+          systemctl enable nginx
+          echo "Hello World from Nginx on Ubuntu!" > /var/www/html/index.nginx-debian.html
 
   WebSG:
     Type: AWS::EC2::SecurityGroup
