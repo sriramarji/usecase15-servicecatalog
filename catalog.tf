@@ -187,11 +187,6 @@ resource "aws_iam_role_policy_attachment" "end_user_attach" {
 data "aws_caller_identity" "current" {}*/
 
 
-
-provider "aws" {
-  region = var.region
-}
-
 # Create a unique S3 bucket for templates
 resource "random_id" "bucket_suffix" {
   byte_length = 4
