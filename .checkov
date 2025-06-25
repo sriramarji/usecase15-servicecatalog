@@ -1,4 +1,4 @@
-checkov:
+<!-- checkov:
   skip_checks:
     - CKV_AWS_20  # Example: Skip specific checks
   quiet: true  # Suppress output
@@ -10,4 +10,4 @@ checkov:
   external_modules_download_path: .external_modules  # Path to download external modules
   use_enforcement_rules: true  # Use enforcement rules
   enforcement_rules:
-    - CKV_AWS_20  # Example: Enforce specific rules
+    - CKV_AWS_20  # Example: Enforce specific rules -->
