@@ -188,6 +188,7 @@ data "aws_caller_identity" "current" {}*/
 
 
 # Create a unique S3 bucket for templates
+
 resource "random_id" "bucket_suffix" {
   byte_length = 4
 }
